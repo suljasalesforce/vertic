@@ -1,0 +1,179 @@
+<!--
+ - Created by sulja on 20.04.2023.
+ -->
+
+<!-- Cases Bulk Creator -->
+<template>
+    <div class="container slds-box">
+        <!-- Title -->
+        <div class="title">
+            Preliminary information about cases
+        </div>
+        <!-- /Title -->
+        <!-- Toolbar -->
+        <div class="toolbar-container">
+            <div class="slds-m-around_x-large slds-box slds-grid">
+                <div class="slds-col slds-size_1-of-2 flex-lft">
+                    <lightning-input
+                            type="checkbox"
+                            label="Select All"
+                            onchange={handleAllSelectChange}
+                    ></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-2 flex-rgt">
+                    <lightning-input
+                            type="checkbox"
+                            checked={withCreatedCase}
+                            label="Select created case"
+                            class="slds-m-right_small"
+                            onchange={handleSelectCreatedCaseChange}
+                    ></lightning-input>
+                    <lightning-combobox
+                            variant="label-hidden"
+                            class="slds-m-right_small"
+                            value={selectedStatus}
+                            options={statusList}
+                            onchange={handleStatusChange}
+                    ></lightning-combobox>
+                    <lightning-button
+                            label="Create Case Info"
+                            variant="brand"
+                            class="slds-m-right_small"
+                            onclick={handleCreateCaseInfo}
+                    ></lightning-button>
+                    <lightning-button
+                            label="Convert to case"
+                            variant="success"
+                            onclick={handleConvertCase}
+                    ></lightning-button>
+                </div>
+            </div>
+        </div>
+        <!-- /Toolbar -->
+        <!-- Cases Info -->
+        <div class="cases-container slds-m-around_large slds-scrollable_y">
+            <div class="slds-grid slds-wrap">
+                <!-- Case Tail -->
+                <template for:each={caseInfoList} for:item='caseInfo'>
+                    <div
+                            class="case-tail-container slds-col slds-size_3-of-12 slds-var-p-around_medium"
+                            key={caseInfo.id}
+                    >
+                        <div
+                                class="case-tail slds-box slds-box_x-small slds-grid"
+                                data-id={caseInfo.id}
+                                onclick={removeValidClass}
+                        >
+                            <div class="slds-col slds-size_1-of-12 tail-column tail-select">
+                                <lightning-input
+                                        type="checkbox"
+                                        checked={caseInfo.selected}
+                                        data-id={caseInfo.id}
+                                        onchange={handleSingleSelectChange}
+                                ></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_10-of-12 tail-column tail-info">
+                                <div class="tail-header b-btm">{caseInfo.name}</div>
+                                <div class="tail-field">
+                                    <span class="tail-category">Account: </span>{caseInfo.accountName}
+                                </div>
+                                <div class="tail-field">
+                                    <span class="tail-category">Contact: </span>{caseInfo.contactName}
+                                </div>
+                                <div class="tail-field b-btm">
+                                    <span class="tail-category">Product: </span>{caseInfo.productName}
+                                </div>
+                                <div class="tail-field">
+                                    <span class="tail-category">Subject: </span>{caseInfo.subject}
+                                </div>
+                                <div class="tail-field b-btm">
+                                    <span class="tail-category">Case Reason: </span>{caseInfo.caseReason}
+                                </div>
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-col slds-large-size_1-of-2">
+                                        <div class="tail-field">
+                                            <span class="tail-category">Status: </span>{caseInfo.status}
+                                        </div>
+                                    </div>
+                                    <div class="slds-col slds-large-size_1-of-2">
+                                        <div class="tail-field">
+                                            <span class="tail-category">Case origin: </span>{caseInfo.caseOrigin}
+                                        </div>
+                                    </div>
+                                    <div class="slds-col slds-large-size_1-of-2">
+                                        <div class="tail-field">
+                                            <span class="tail-category">Type: </span>{caseInfo.type}
+                                        </div>
+                                    </div>
+                                    <div class="slds-col slds-large-size_1-of-2">
+                                        <div class="tail-field">
+                                            <span class="tail-category">Priority: </span>{caseInfo.priority}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-12 tail-column">
+                                <button class="slds-button slds-button_icon">
+                                    <lightning-icon
+                                            icon-name="utility:delete"
+                                            alternative-text="Delete"
+                                            size="small"
+                                            data-id={caseInfo.id}
+                                            onclick={handleDelete}
+                                    ></lightning-icon>
+                                </button>
+                                <button class="slds-button slds-button_icon">
+                                    <lightning-icon
+                                            icon-name="utility:preview"
+                                            alternative-text="View"
+                                            size="small"
+                                            data-id={caseInfo.id}
+                                            onclick={handleView}
+                                    ></lightning-icon>
+                                </button>
+                                <button class="slds-button slds-button_icon">
+                                    <lightning-icon
+                                            icon-name="utility:edit"
+                                            alternative-text="Edit"
+                                            size="small"
+                                            data-id={caseInfo.id}
+                                            onclick={handleEdit}
+                                    ></lightning-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <!-- /Case Tail -->
+            </div>
+        </div>
+        <!-- /Cases Info -->
+        <!-- Total -->
+        <div class="total-container">
+            <c-case-info-total-component></c-case-info-total-component>
+        </div>
+        <!-- /Total -->
+        <!-- Create|Update modal -->
+        <template if:true={isRecordModalOpen}>
+            <div class="modal-wrapper">
+                <div class="modal-content">
+                    <header class="modal-header">
+                        <button
+                                class="slds-button close-button"
+                                onclick={handleRecordModalClose}
+                        >
+                            ⨉
+                        </button>
+                    </header>
+                    <div>
+                        <c-case-info-record-component
+                                current-record={currentRecord}
+                                onupdatedata={retrieveCaseInfoData}
+                        ></c-case-info-record-component>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <!-- Create|Update modal -->
+    </div>
+</template>

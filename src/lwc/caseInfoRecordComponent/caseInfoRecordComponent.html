@@ -1,0 +1,32 @@
+<!--
+ - Created by sulja on 21.04.2023.
+ -->
+
+<!-- Case Info Record Component -->
+<template>
+    <div class="form-container slds-box">
+        <div class="title">
+            CASE INFO
+        </div>
+        <lightning-record-edit-form
+                object-api-name="CaseInfo__c"
+                record-id={id}
+                onsuccess={handleSuccess}>
+            <lightning-input-field required field-name="Name"></lightning-input-field>
+            <lightning-input-field field-name="Account__c"></lightning-input-field>
+            <lightning-input-field field-name="Contact__c"></lightning-input-field>
+            <lightning-input-field field-name="Product__c"></lightning-input-field>
+            <lightning-input-field field-name="Type__c"></lightning-input-field>
+            <lightning-input-field field-name="CaseReason__c"></lightning-input-field>
+            <lightning-input-field required field-name="Status__c"></lightning-input-field>
+            <lightning-input-field field-name="Priority__c"></lightning-input-field>
+            <lightning-input-field field-name="CaseOrigin__c"></lightning-input-field>
+            <lightning-input-field field-name="Subject__c"></lightning-input-field>
+            <lightning-input-field field-name="IsCaseCreated__c"></lightning-input-field>
+            <!-- Add more fields here -->
+            <div class="slds-m-top_medium controls">
+                <lightning-button label="Save" type="submit"></lightning-button>
+            </div>
+        </lightning-record-edit-form>
+    </div>
+</template>

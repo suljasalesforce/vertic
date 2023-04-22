@@ -1,0 +1,20 @@
+<!--
+ - Created by sulja on 22.04.2023.
+ -->
+
+<!-- Case Info Progress Bar Component -->
+<template>
+    <div class="total-bar">
+        <div class="progress-container">
+            <div class="progress-bar filled" style={progress}></div>
+            <span class="progress-value">{percent}%</span>
+        </div>
+        <div class="currency">
+            $
+            <lightning-formatted-number value={summary}></lightning-formatted-number>
+            <span> of </span>
+            $
+            <lightning-formatted-number value={total}></lightning-formatted-number>
+        </div>
+    </div>
+</template>

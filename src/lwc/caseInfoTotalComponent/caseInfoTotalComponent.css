@@ -1,0 +1,25 @@
+/**
+ * Created by sulja on 21.04.2023.
+ */
+.total-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+.total-status {
+    height: 100px;
+}
+.flex-rgt {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.flex-lft {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.total-info {
+    font-weight: bold;
+}

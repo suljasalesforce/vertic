@@ -1,0 +1,14 @@
+/**
+ * Created by sulja on 21.04.2023.
+ */
+.title {
+    font-size: 25px;
+    font-weight: bold;
+    padding-bottom: 25px;
+    text-align: center;
+    border-bottom: 1px solid black;
+}
+
+.controls {
+    text-align: right;
+}

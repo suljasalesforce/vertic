@@ -1,0 +1,42 @@
+<!--
+ - Created by sulja on 21.04.2023.
+ -->
+
+<!-- Case Info Total Component -->
+<template>
+    <template if:true={totalData}>
+        <div class="slds-m-around_x-large slds-box slds-grid">
+            <div class="total-title slds-col slds-size_1-of-2">
+                Total summary: {totalData.total}$
+            </div>
+            <div class="total-status slds-col slds-size_1-of-2 slds-scrollable_y">
+                <lightning-accordion>
+                    <template for:each={totalData.statusCaseInfoList} for:item="statusCaseInfo">
+                        <lightning-accordion-section
+                                name={statusCaseInfo.status}
+                                label={statusCaseInfo.status}
+                                key={statusCaseInfo.status}
+                        >
+                            <p>
+                                It's just typing, which is not quality, but should ideally reflect. That's all
+                                It's just typing, which is not quality, but should ideally reflect.
+                            </p>
+                            <div class="slds-grid slds-p-top_small">
+                                <div class="slds-col slds-size_1-of-2 flex-lft total-info">
+                                    It's just typing, which is not quality, but should ideally reflect.
+                                </div>
+                                <div class="slds-col slds-size_1-of-2 flex-rgt">
+                                    <c-case-info-progress-bar-component
+                                            total={totalData.total}
+                                            percent={statusCaseInfo.percent}
+                                            summary={statusCaseInfo.summary}
+                                    ></c-case-info-progress-bar-component>
+                                </div>
+                            </div>
+                        </lightning-accordion-section>
+                    </template>
+                </lightning-accordion>
+            </div>
+        </div>
+    </template>
+</template>
